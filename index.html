@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advanced Placement (AP) | Georges Vanier Secondary School</title>
+<meta name="description" content="AP courses and AP exam registration at Georges Vanier Secondary School, a certified AP testing centre in the Toronto District School Board.">
+<style>
+  :root{
+    --ap-blue:#1d3a6b;
+    --ap-blue-dark:#12264a;
+    --ap-blue-light:#2c5296;
+    --gold:#c8a24a;
+    --gold-light:#e3c87f;
+    --gold-text:#8a6a1f;          /* gold dark enough for text on light backgrounds (5:1 on white) */
+    --paper:#f7f9fc;
+    --ink:#22262e;
+    --muted:#5f6672;
+    --card-border:#e3e8f2;
+    --white:#ffffff;
+    --shadow:0 6px 22px rgba(18,38,74,.12);
+    --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  html{scroll-behavior:smooth;}
+  /* Keep anchor jumps clear of the sticky header: 97px in one row, 75px collapsed
+     (hamburger at <=800px). The nav never wraps to a second row — at mid widths that made
+     the header 170px, taller than this offset, and headings hid under it after a nav click. */
+  section[id]{scroll-margin-top:120px;}
+  @media(max-width:800px){ section[id]{scroll-margin-top:90px;} }
+  body{
+    font-family:'Segoe UI',Helvetica,Arial,sans-serif;
+    color:var(--ink);
+    background:var(--paper);
+    line-height:1.65;
+  }
+  a{color:var(--ap-blue-light);text-decoration:none;}
+  a:hover{text-decoration:underline;}
+  a:focus-visible,button:focus-visible,summary:focus-visible{outline:3px solid var(--gold);outline-offset:2px;}
+  .container{max-width:1100px;margin:0 auto;padding:0 22px;}
+  .ext{font-size:.85em;}           /* the ↗ after links that open a new tab */
+
+  /* ---------- Header / Nav ----------
+     Icon-above-label tiles, same as the guidance page. The header is sticky inside a
+     fixed-height Evoq frame, so keep it compact: every pixel here is taken off what the
+     student can see while scrolling. */
+  header{position:sticky;top:0;z-index:100;background:var(--ap-blue);box-shadow:var(--shadow);}
+  .nav{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 22px;max-width:1100px;margin:0 auto;
+  }
+  .brand{color:var(--white);}
+  .brand b,.brand strong{font-size:1.05rem;line-height:1.2;display:block;font-weight:700;}
+  .brand span{font-size:.78rem;color:var(--gold-light);letter-spacing:.5px;}
+  .nav-links{display:flex;gap:4px;list-style:none;flex-wrap:wrap;}
+  .nav-links a{
+    display:flex;flex-direction:column;align-items:center;gap:4px;
+    color:var(--white);font-size:.79rem;font-weight:600;letter-spacing:.2px;
+    padding:8px 10px 7px;border-radius:10px;min-width:82px;text-align:center;
+    border:1px solid transparent;transition:background .2s,border-color .2s,transform .15s;
+  }
+  .nav-links a:hover,.nav-links a:focus-visible{
+    background:var(--ap-blue-light);border-color:var(--gold);transform:translateY(-1px);
+    text-decoration:none;
+  }
+  .nav-ico{width:27px;height:27px;color:var(--gold-light);flex-shrink:0;}
+  .nav-links a:hover .nav-ico,.nav-links a:focus-visible .nav-ico{color:var(--gold);}
+  .menu-toggle{display:none;background:none;border:none;color:var(--white);
+    font-size:1.6rem;cursor:pointer;line-height:1;padding:4px 6px;border-radius:8px;}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:linear-gradient(135deg,var(--ap-blue) 0%,var(--ap-blue-dark) 100%);
+    color:var(--white);padding:70px 0 80px;position:relative;overflow:hidden;text-align:center;
+  }
+  /* Decorative oversized "AP" letterform + gold glow. Purely visual. */
+  .hero::before{
+    content:"AP";position:absolute;left:-30px;top:-70px;
+    font-size:17rem;font-weight:900;line-height:1;letter-spacing:-8px;
+    color:rgba(255,255,255,.045);pointer-events:none;
+  }
+  .hero::after{
+    content:"";position:absolute;right:-80px;bottom:-80px;
+    width:320px;height:320px;border-radius:50%;
+    background:radial-gradient(circle,rgba(200,162,74,.28),transparent 70%);
+    pointer-events:none;
+  }
+  .hero .container{position:relative;z-index:1;}
+  .badge{
+    display:inline-flex;align-items:center;gap:8px;
+    background:rgba(255,255,255,.08);border:1px solid var(--gold-light);color:var(--gold-light);
+    border-radius:30px;padding:6px 15px;margin-bottom:18px;
+    font-size:.8rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;
+  }
+  .badge svg{width:18px;height:18px;flex-shrink:0;}
+  .hero h1{font-size:2.6rem;line-height:1.15;margin:0 auto 14px;max-width:780px;color:var(--white);font-weight:800;}
+  .hero h1 em{color:var(--gold-light);font-style:normal;}
+  .hero p{font-size:1.12rem;max-width:640px;color:#dfe7f4;margin:0 auto 28px;}
+  .btn-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;align-items:center;}
+  .btn{
+    display:inline-block;padding:13px 26px;border-radius:30px;
+    font-weight:600;font-size:.98rem;transition:transform .15s,box-shadow .2s,background .2s;
+  }
+  .btn:hover,.btn:focus-visible{text-decoration:none;}
+  .btn-gold{background:var(--gold);color:var(--ap-blue-dark);}
+  .btn-gold:hover,.btn-gold:focus-visible{transform:translateY(-2px);box-shadow:0 8px 20px rgba(0,0,0,.25);}
+  .btn-outline{border:2px solid var(--gold-light);color:var(--white);}
+  .btn-outline:hover,.btn-outline:focus-visible{background:rgba(255,255,255,.1);}
+  .btn-blue{background:var(--ap-blue);color:var(--white);}
+  .btn-blue:hover,.btn-blue:focus-visible{background:var(--ap-blue-light);}
+
+  /* ---------- Sections ---------- */
+  section{padding:64px 0;}
+  .alt{background:var(--white);}
+  .section-head{text-align:center;max-width:700px;margin:0 auto 40px;}
+  .eyebrow{
+    color:var(--gold-text);font-weight:700;letter-spacing:1.5px;
+    text-transform:uppercase;font-size:.82rem;
+  }
+  .section-head h2{font-size:2rem;color:var(--ap-blue);margin:8px 0 12px;font-weight:700;line-height:1.25;}
+  .section-head p{color:var(--muted);font-size:1.05rem;}
+
+  .grid{display:grid;gap:24px;}
+  .grid-3{grid-template-columns:repeat(3,1fr);}
+  .grid-2{grid-template-columns:repeat(2,1fr);}
+
+  /* Icon tile used on cards (blue square, gold line icon). */
+  .ico{
+    width:46px;height:46px;border-radius:12px;background:var(--ap-blue);color:var(--gold-light);
+    display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  .ico svg{width:26px;height:26px;}
+
+  /* ---------- What is AP ---------- */
+  .point{
+    background:var(--paper);border:1px solid var(--card-border);border-top:4px solid var(--gold);
+    border-radius:var(--radius);padding:24px;
+  }
+  .point h3{color:var(--ap-blue);font-size:1.15rem;font-weight:700;margin:14px 0 6px;line-height:1.3;}
+  .point p{color:var(--muted);font-size:.96rem;}
+  .callout{
+    margin-top:28px;display:flex;gap:16px;align-items:flex-start;
+    background:var(--paper);border:1px solid var(--card-border);border-left:5px solid var(--ap-blue);
+    border-radius:12px;padding:18px 22px;
+  }
+  .callout .ico{width:40px;height:40px;border-radius:10px;}
+  .callout .ico svg{width:22px;height:22px;}
+  .callout p{font-size:.98rem;}
+  .callout b,.callout strong{color:var(--ap-blue);font-weight:700;}
+
+  /* ---------- Course cards ---------- */
+  .course{
+    display:flex;flex-direction:column;
+    background:var(--white);border:1px solid var(--card-border);border-top:4px solid var(--gold);
+    border-radius:var(--radius);box-shadow:var(--shadow);padding:24px 26px;
+    transition:transform .18s,box-shadow .2s;
+  }
+  .course:hover{transform:translateY(-3px);box-shadow:0 12px 30px rgba(18,38,74,.18);}
+  .course-top{display:flex;align-items:center;gap:14px;margin-bottom:12px;}
+  .course h3{color:var(--ap-blue);font-size:1.25rem;font-weight:700;line-height:1.25;}
+  .code{
+    display:inline-block;margin-top:3px;font-size:.78rem;font-weight:700;letter-spacing:.8px;
+    color:var(--gold-text);background:#faf4e4;border:1px solid #efe2bd;border-radius:6px;padding:1px 8px;
+  }
+  .course p{color:var(--ink);font-size:.96rem;margin-bottom:12px;}
+  .course .path{font-size:.88rem;color:var(--muted);padding-top:10px;border-top:1px solid var(--card-border);margin-bottom:14px;}
+  .course .path b,.course .path strong{color:var(--ink);font-weight:700;}
+  .course .more{margin-top:auto;font-weight:600;font-size:.93rem;}
+
+  /* ---------- Exams & registration ---------- */
+  .facts{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:28px;}
+  .fact{
+    display:flex;gap:14px;align-items:center;
+    background:var(--white);border:1px solid var(--card-border);border-radius:12px;
+    box-shadow:var(--shadow);padding:16px 18px;
+  }
+  .fact .ico{width:42px;height:42px;border-radius:10px;}
+  .fact .ico svg{width:23px;height:23px;}
+  .fact .lbl{display:block;font-size:.76rem;text-transform:uppercase;letter-spacing:1px;color:var(--muted);font-weight:700;}
+  .fact .val{display:block;font-size:1.02rem;font-weight:700;color:var(--ap-blue);line-height:1.35;}
+  .fact .val a{font-weight:700;}
+  .fact .val small{display:block;font-size:.82rem;font-weight:400;color:var(--muted);}
+
+  .res{
+    padding:26px;background:var(--white);border-radius:var(--radius);
+    box-shadow:var(--shadow);border:1px solid var(--card-border);border-top:4px solid var(--gold);
+  }
+  .res h3{color:var(--ap-blue);font-size:1.2rem;margin-bottom:16px;font-weight:700;}
+
+  .steps{list-style:none;counter-reset:step;}
+  .steps li{counter-increment:step;position:relative;padding:0 0 18px 48px;}
+  .steps li:last-child{padding-bottom:0;}
+  .steps li::before{
+    content:counter(step);position:absolute;left:0;top:0;
+    width:32px;height:32px;border-radius:50%;background:var(--ap-blue);color:var(--gold-light);
+    font-weight:800;font-size:.95rem;display:flex;align-items:center;justify-content:center;
+  }
+  .steps li::after{content:"";position:absolute;left:15px;top:36px;bottom:4px;width:2px;background:var(--card-border);}
+  .steps li:last-child::after{display:none;}
+  .steps h4{color:var(--ap-blue);font-size:1rem;font-weight:700;line-height:1.3;margin:4px 0 2px;}
+  .steps p{font-size:.93rem;color:var(--muted);}
+
+  .exam-list{list-style:none;margin-bottom:4px;}
+  .exam-list li{
+    display:flex;justify-content:space-between;align-items:center;gap:10px;
+    padding:9px 0;border-bottom:1px solid var(--card-border);font-size:.97rem;
+  }
+  .exam-list li:last-child{border-bottom:none;}
+  .exam-list b,.exam-list strong{color:var(--ink);font-weight:600;}
+  .tag{font-size:.74rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+    color:var(--ap-blue);background:#e8eef9;border-radius:20px;padding:2px 10px;white-space:nowrap;}
+
+  .coincide{
+    margin-top:16px;background:var(--paper);border:1px solid var(--card-border);
+    border-left:4px solid var(--gold);border-radius:10px;padding:16px 18px;
+  }
+  .coincide h4{color:var(--ap-blue);font-size:1rem;font-weight:700;margin-bottom:8px;}
+  .coincide p{font-size:.92rem;color:var(--ink);}
+  .coincide p + p{margin-top:8px;}
+  .coincide .fine{color:var(--muted);font-size:.86rem;}
+  /* Mini "same time slot" illustration: AP Calculus AB = AP Calculus BC. */
+  .slot{display:flex;align-items:center;justify-content:center;gap:8px;flex-wrap:wrap;margin:12px 0;}
+  .slot .pill{background:var(--ap-blue);color:var(--white);font-weight:700;font-size:.84rem;border-radius:20px;padding:5px 13px;}
+  .slot .pill.alt-pill{background:var(--white);color:var(--ap-blue);border:2px dashed var(--ap-blue-light);}
+  .slot .same{display:flex;align-items:center;gap:5px;color:var(--gold-text);font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.6px;}
+  .slot .same svg{width:17px;height:17px;}
+
+  .cta-band{
+    margin-top:30px;text-align:center;color:var(--white);
+    background:linear-gradient(135deg,var(--ap-blue-dark),var(--ap-blue));
+    border-radius:var(--radius);padding:32px 28px;position:relative;overflow:hidden;
+  }
+  .cta-band h3{color:var(--gold-light);font-size:1.4rem;font-weight:700;margin-bottom:8px;}
+  .cta-band p{color:#dfe7f4;max-width:620px;margin:0 auto 18px;}
+
+  /* ---------- FAQ (native <details>, no JS needed) ---------- */
+  .faq{max-width:820px;margin:0 auto;display:grid;gap:12px;}
+  .faq details{background:var(--white);border:1px solid var(--card-border);border-radius:12px;box-shadow:0 3px 12px rgba(18,38,74,.07);}
+  .faq summary{
+    cursor:pointer;list-style:none;position:relative;
+    padding:16px 54px 16px 20px;font-weight:700;color:var(--ap-blue);font-size:1.02rem;line-height:1.4;
+    border-radius:12px;
+  }
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary::after{
+    content:"+";position:absolute;right:20px;top:50%;transform:translateY(-50%);
+    color:var(--gold-text);font-size:1.5rem;font-weight:700;line-height:1;
+  }
+  .faq details[open] summary::after{content:"\2212";}
+  .faq summary:hover{color:var(--ap-blue-light);}
+  .faq .ans{padding:0 20px 18px;font-size:.96rem;}
+  .faq .ans p + p{margin-top:8px;}
+
+  /* ---------- Contact ---------- */
+  .contact-wrap{display:grid;grid-template-columns:1.1fr .9fr;gap:34px;align-items:start;}
+  .info-line{display:flex;gap:14px;margin-bottom:18px;align-items:flex-start;}
+  .info-line svg{width:24px;height:24px;color:var(--gold-text);flex-shrink:0;margin-top:2px;}
+  .info-line b,.info-line strong{color:var(--ap-blue);display:block;font-weight:700;}
+  .info-line .role{color:var(--muted);font-size:.93rem;}
+  .side-card{
+    background:var(--paper);border:1px solid var(--card-border);border-top:4px solid var(--gold);
+    border-radius:var(--radius);padding:24px;
+  }
+  .side-card h3{color:var(--ap-blue);font-size:1.15rem;font-weight:700;margin-bottom:8px;}
+  .side-card p{color:var(--muted);font-size:.95rem;margin-bottom:16px;}
+  .side-card .btn{padding:10px 20px;font-size:.92rem;}
+
+  /* ---------- Footer ---------- */
+  footer{background:var(--ap-blue-dark);color:#cdd8ea;padding:34px 0;text-align:center;font-size:.95rem;}
+  footer .crest-sm{
+    width:38px;height:38px;border-radius:50%;background:var(--gold);
+    color:var(--ap-blue-dark);display:flex;align-items:center;justify-content:center;
+    font-weight:800;margin:0 auto 12px;font-size:.9rem;
+  }
+  footer b,footer strong{color:var(--white);font-weight:700;}
+  footer a{color:var(--gold-light);}
+  footer .links{margin-top:6px;}
+  footer .small{font-size:.8rem;color:#9fb0cc;margin:12px auto 0;max-width:720px;}
+
+  /* ---------- Responsive ---------- */
+  @media(max-width:860px){
+    .grid-3{grid-template-columns:1fr;}
+    .facts{grid-template-columns:1fr;}
+    .contact-wrap{grid-template-columns:1fr;}
+    .hero h1{font-size:2.1rem;}
+    .hero::before{font-size:12rem;top:-40px;}
+  }
+  @media(max-width:700px){
+    .grid-2{grid-template-columns:1fr;}
+  }
+  /* Hamburger breakpoint is 800px, not guidance's 600px: brand + five full-size tiles need
+     ~780px in one row, and the Evoq frame (beside the school site's sidebar) is often
+     narrower than that on a desktop. */
+  @media(max-width:800px){
+    .menu-toggle{display:block;flex-shrink:0;}
+    .nav{flex-wrap:wrap;gap:0 10px;}
+    .brand{flex:1 1 0;min-width:0;}   /* shrink beside the hamburger instead of pushing it to a new row */
+    .nav-links{display:none;width:100%;gap:6px;padding:10px 0 4px;}
+    .nav-links.open{display:grid;grid-template-columns:repeat(3,1fr);}
+    .nav-links a{min-width:0;background:rgba(255,255,255,.08);}
+  }
+  @media(max-width:600px){
+    section{padding:48px 0;}
+    .hero{padding:50px 0 58px;}
+    .hero h1{font-size:1.8rem;}
+    .hero p{font-size:1.02rem;}
+    .section-head h2{font-size:1.65rem;}
+    .course,.res{padding:22px 20px;}
+    .callout{flex-direction:column;gap:10px;}
+  }
+  /* Phone-in-Evoq: the frame is only ~330px wide there (school page margins + module padding). */
+  @media(max-width:420px){
+    .nav{padding:12px 14px;}
+    .brand b,.brand strong{font-size:.92rem;}
+    .brand span{font-size:.7rem;}
+    .container{padding:0 16px;}
+  }
+</style>
+</head>
+<body>
+
+<!-- ============ HEADER / NAV ============ -->
+<header>
+  <nav class="nav" aria-label="Main">
+    <div class="brand">
+      <b>Georges Vanier Secondary School</b>
+      <span>ADVANCED PLACEMENT (AP)</span>
+    </div>
+    <button class="menu-toggle" aria-label="Menu" aria-expanded="false" aria-controls="navlinks">&#9776;</button>
+    <ul class="nav-links" id="navlinks">
+      <li><a href="#what-is-ap"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 18h6"/><path d="M10 21h4"/><path d="M12 3a6 6 0 0 0-3.6 10.8c.7.6 1.1 1.3 1.1 2.2h5c0-.9.4-1.6 1.1-2.2A6 6 0 0 0 12 3z"/></svg>What is AP?</a></li>
+      <li><a href="#courses"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 6.5C10.5 5 8 4.2 4 4.2V18c4 0 6.5.8 8 2.3 1.5-1.5 4-2.3 8-2.3V4.2c-4 0-6.5.8-8 2.3z"/><path d="M12 6.5v13.8"/></svg>Courses</a></li>
+      <li><a href="#exams"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2.8h6V4"/><path d="m9 13 2 2 4-4"/></svg>Exams</a></li>
+      <li><a href="#faq"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M9.5 9.2a2.6 2.6 0 0 1 5 .8c0 1.8-2.5 2.3-2.5 3.8"/><path d="M12 17.2h.01"/></svg>FAQ</a></li>
+      <li><a href="#contact"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="2.2"/><path d="m3 7 9 6 9-6"/></svg>Contact</a></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="container">
+    <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2.8 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.7 4.3-1.3 7.5-5.1 7.5-9.7V6z"/><path d="m8.8 12 2.2 2.2 4.4-4.4"/></svg>Certified AP Testing Centre</div>
+    <h1>University-level learning, <em>right here at Georges Vanier.</em></h1>
+    <p>We offer four Advanced Placement courses, open to every student, and we're a certified AP testing centre. Take the course, write the exam in May, and you could earn university credit or advanced standing before you graduate.</p>
+    <div class="btn-row">
+      <!-- FORM-URL (1 of 2): replace with the department's AP exam registration Google Form.
+           Both FORM-URL spots must change together. Keep target="_blank" — the page is framed. -->
+      <a href="https://forms.gle/REPLACE-WITH-AP-EXAM-FORM" class="btn btn-gold" target="_blank" rel="noopener">Register for an AP exam <span class="ext" aria-hidden="true">&#8599;</span></a>
+      <a href="#courses" class="btn btn-outline">Explore our courses</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ WHAT IS AP ============ -->
+<section id="what-is-ap" class="alt" aria-labelledby="what-title">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">The Basics</div>
+      <h2 id="what-title">What is AP?</h2>
+      <p>Advanced Placement is a program run by College Board. Each AP course follows a university-level curriculum and ends with a standardized AP exam, written in May.</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="point">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 8.5 12 4l10 4.5-10 4.5z"/><path d="M6 10.8v4.4c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.4"/><path d="M22 8.5v5"/></svg></div>
+        <h3>University-level courses</h3>
+        <p>AP courses cover the material of an introductory university course, so you build the depth and study habits that first year will ask of you.</p>
+      </div>
+      <div class="point">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 11V7.5a4 4 0 0 1 7.6-1.7"/><rect x="4.5" y="11" width="15" height="10" rx="2"/><path d="M12 15v2"/></svg></div>
+        <h3>Open to every student</h3>
+        <p>There's no application or admission process for AP courses at Georges Vanier. Choose them during regular course selection, like any other Grade&nbsp;12 course.</p>
+      </div>
+      <div class="point">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="9" r="5.5"/><path d="m9 13.8-1.5 7.2 4.5-2.4 4.5 2.4-1.5-7.2"/></svg></div>
+        <h3>Earn credit or placement</h3>
+        <p>A strong exam score, usually a 4 or 5, can earn you credit or advanced standing at many universities in Canada and around the world. Policies vary by school and program.</p>
+      </div>
+    </div>
+    <div class="callout">
+      <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v5.5"/><path d="M12 7.5h.01"/></svg></div>
+      <p><b>The course and the exam are separate.</b> An AP course earns you an Ontario credit, just like any other course. Writing the AP exam is an extra step that you register for yourself. See <a href="#exams">Exams &amp; Registration</a> below.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COURSES ============
+     All four course codes are confirmed (sciences match the Science site; MCV4U0 confirmed
+     2026-11-10). Course links go to College Board's student-facing AP Students pages. -->
+<section id="courses" aria-labelledby="courses-title">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Offered at Georges Vanier</div>
+      <h2 id="courses-title">Our AP Courses</h2>
+      <p>Four AP courses, each taught as part of its Ontario Grade&nbsp;12 credit.</p>
+    </div>
+    <div class="grid grid-2">
+
+      <div class="course">
+        <div class="course-top">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 20c0-9 5.5-14.5 15-15-.5 9.5-6 15-15 15z"/><path d="M5 20 14 11"/></svg></div>
+          <div><h3>AP Biology</h3><span class="code">SBI4U0</span></div>
+        </div>
+        <p>Evolution, cell processes, energy, genetics and ecology, explored through hands-on, inquiry-based labs.</p>
+        <div class="path"><b>Pre-AP pathway:</b> SBI3U0, Grade&nbsp;11 Biology</div>
+        <a class="more" href="https://apstudents.collegeboard.org/courses/ap-biology" target="_blank" rel="noopener">Course &amp; exam overview at College Board <span class="ext" aria-hidden="true">&#8599;</span></a>
+      </div>
+
+      <div class="course">
+        <div class="course-top">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 3h6"/><path d="M10 3v6.2L4.6 18.4A1.7 1.7 0 0 0 6.1 21h11.8a1.7 1.7 0 0 0 1.5-2.6L14 9.2V3"/><path d="M7.2 15h9.6"/></svg></div>
+          <div><h3>AP Chemistry</h3><span class="code">SCH4U0</span></div>
+        </div>
+        <p>Atomic structure, bonding, reactions, kinetics, thermodynamics and equilibrium, with a strong lab component.</p>
+        <div class="path"><b>Pre-AP pathway:</b> SCH3U0, Grade&nbsp;11 Chemistry</div>
+        <a class="more" href="https://apstudents.collegeboard.org/courses/ap-chemistry" target="_blank" rel="noopener">Course &amp; exam overview at College Board <span class="ext" aria-hidden="true">&#8599;</span></a>
+      </div>
+
+      <div class="course">
+        <div class="course-top">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 3.5v17h17"/><path d="M6.5 16.5c3 0 4-9 7-9s3.5 5 7 5"/></svg></div>
+          <div><h3>AP Calculus AB</h3><span class="code">MCV4U0</span></div>
+        </div>
+        <p>Limits, derivatives, integrals and the Fundamental Theorem of Calculus: the equivalent of a first-semester university calculus course.</p>
+        <div class="path"><b>Builds on:</b> Advanced Functions (MHF4U), taken before or alongside</div>
+        <a class="more" href="https://apstudents.collegeboard.org/courses/ap-calculus-ab" target="_blank" rel="noopener">Course &amp; exam overview at College Board <span class="ext" aria-hidden="true">&#8599;</span></a>
+      </div>
+
+      <div class="course">
+        <div class="course-top">
+          <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="9.5" ry="3.8"/><ellipse cx="12" cy="12" rx="9.5" ry="3.8" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9.5" ry="3.8" transform="rotate(120 12 12)"/></svg></div>
+          <div><h3>AP Physics 1</h3><span class="code">SPH4U0</span></div>
+        </div>
+        <p>Algebra-based physics: motion, forces, energy, momentum, rotation, oscillations and fluids, built around experiments and problem-solving.</p>
+        <div class="path"><b>Pre-AP pathway:</b> SPH3U0, Grade&nbsp;11 Physics</div>
+        <a class="more" href="https://apstudents.collegeboard.org/courses/ap-physics-1-algebra-based" target="_blank" rel="noopener">Course &amp; exam overview at College Board <span class="ext" aria-hidden="true">&#8599;</span></a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ============ EXAMS & REGISTRATION ============ -->
+<section id="exams" class="alt" aria-labelledby="exams-title">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Certified AP Testing Centre</div>
+      <h2 id="exams-title">Exams &amp; Registration</h2>
+      <p>Georges Vanier is a certified AP testing centre, so you can write your AP exams right here at school. Every exam has to be registered in advance.</p>
+    </div>
+
+    <div class="facts">
+      <div class="fact">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.8V12l3.5 2"/></svg></div>
+        <!-- DEADLINES (update every year; also in the CTA band below): the school's registration
+             and payment deadline. 2026–27: Nov 6, 2026 for first-semester, full-year and exam-only
+             students (College Board order deadline Nov 13); second-semester date TBD. -->
+        <div><span class="lbl">Registration deadline</span><span class="val">November&nbsp;6, 2026<small>Closed for first-semester, full-year and exam-only students. Second-semester date to be announced.</small></span></div>
+      </div>
+      <div class="fact">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></svg></div>
+        <!-- TBD: exam fee (per exam) for this year -->
+        <div><span class="lbl">Exam fee</span><span class="val">To be announced<small>Set each year, per exam</small></span></div>
+      </div>
+      <div class="fact">
+        <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.5h17"/><path d="M8 3v4M16 3v4"/></svg></div>
+        <div><span class="lbl">Exam dates</span><span class="val">First two weeks of May<small><a href="https://apstudents.collegeboard.org/exam-dates" target="_blank" rel="noopener">College Board exam calendar <span class="ext" aria-hidden="true">&#8599;</span></a></small></span></div>
+      </div>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="res">
+        <h3>How to register</h3>
+        <ol class="steps">
+          <li><h4>Check that your exam is offered here</h4><p>We run the exams for the four AP courses taught at Georges Vanier. Exams for some other subjects may also be possible (see <b>coinciding exams</b>).</p></li>
+          <li><h4>Fill in the registration form</h4><p>Complete the AP exam registration form before the school's registration deadline.</p></li>
+          <li><h4>Join your exam section in My AP</h4><p>After you register, we'll send you instructions for joining your exam section in your College Board account.</p></li>
+          <li><h4>Pay the exam fee</h4><p>Pay the school by the registration deadline. That gives us time to order your exam from College Board.</p></li>
+          <li><h4>Write your exam in May</h4><p>Exams are held at Georges Vanier on College Board's dates. We'll confirm the room and what to bring closer to the day.</p></li>
+        </ol>
+      </div>
+
+      <div class="res">
+        <h3>Which exams can I write here?</h3>
+        <ul class="exam-list">
+          <li><b>AP Biology</b><span class="tag">Taught at GV</span></li>
+          <li><b>AP Chemistry</b><span class="tag">Taught at GV</span></li>
+          <li><b>AP Calculus AB</b><span class="tag">Taught at GV</span></li>
+          <li><b>AP Physics 1</b><span class="tag">Taught at GV</span></li>
+        </ul>
+        <div class="coincide">
+          <h4>Coinciding exams</h4>
+          <p>College Board sets one date and start time for each AP exam. When the exam for a subject we don't teach falls in the same time slot as an exam we're already supervising, we can sometimes seat you with that group.</p>
+          <div class="slot" aria-hidden="true">
+            <span class="pill">AP Calculus AB</span>
+            <span class="same"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.8V12l3.5 2"/></svg>Same date &amp; time</span>
+            <span class="pill alt-pill">AP Calculus BC</span>
+          </div>
+          <p>For example, AP Calculus BC is often written at the same time as AP Calculus AB.</p>
+          <p class="fine">These spots depend on each year's College Board schedule, so they aren't guaranteed. You'd also be preparing on your own, since there's no GV class for that subject. Ask early.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="cta-band">
+      <h3>Ready to register?</h3>
+      <!-- DEADLINES: keep in sync with the Registration deadline card above. -->
+      <p>Use our AP exam registration form to sign up. Deadlines are firm: for 2026&ndash;27, registration for first-semester, full-year and exam-only students closed on November&nbsp;6. Second-semester dates will be posted here.</p>
+      <!-- FORM-URL (2 of 2): same form as FORM-URL (1 of 2) in the hero. -->
+      <a href="https://forms.gle/REPLACE-WITH-AP-EXAM-FORM" class="btn btn-gold" target="_blank" rel="noopener">Register for an AP exam <span class="ext" aria-hidden="true">&#8599;</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section id="faq" aria-labelledby="faq-title">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Questions</div>
+      <h2 id="faq-title">Frequently Asked Questions</h2>
+    </div>
+    <div class="faq">
+      <details>
+        <summary>Do I need to apply to take an AP course?</summary>
+        <div class="ans"><p>No. AP courses at Georges Vanier are open to every student. Pick them during regular course selection, the same way you choose any other course. Your guidance counsellor can help you plan the pre-AP courses in Grade&nbsp;11 that lead into them.</p></div>
+      </details>
+      <details>
+        <summary>Can I write an AP exam for a subject GV doesn't teach?</summary>
+        <div class="ans"><p>Sometimes. If College Board schedules that exam at the same date and time as one we're already supervising, we may be able to seat you with that group. AP Calculus BC alongside AP Calculus AB is the most common example. It depends on each year's schedule, so contact us early to ask.</p></div>
+      </details>
+      <details>
+        <summary>How much does an AP exam cost?</summary>
+        <!-- TBD: add this year's fee once confirmed (keep in sync with the Exam fee card). -->
+        <div class="ans"><p>The fee is set each year and is charged per exam. This year's fee will be posted here once it's confirmed.</p></div>
+      </details>
+      <details>
+        <summary>When are AP exams written?</summary>
+        <div class="ans"><p>AP exams are held over the first two weeks of May, on dates and times set by College Board. See the <a href="https://apstudents.collegeboard.org/exam-dates" target="_blank" rel="noopener">College Board exam calendar <span class="ext" aria-hidden="true">&#8599;</span></a> for this year's schedule.</p></div>
+      </details>
+      <details>
+        <summary>How are AP exams scored, and when do I get my results?</summary>
+        <div class="ans"><p>AP exams are scored from 1 to 5. Scores are released in July, and you'll see them in your College Board account. <a href="https://apstudents.collegeboard.org/scores" target="_blank" rel="noopener">About AP scores <span class="ext" aria-hidden="true">&#8599;</span></a></p></div>
+      </details>
+      <details>
+        <summary>Will universities give me credit for my AP exams?</summary>
+        <div class="ans">
+          <p>Many universities in Canada and elsewhere award credit or advanced standing for strong AP scores, usually a 4 or 5. Every school and program sets its own rules, so check the universities you're interested in. <a href="https://apstudents.collegeboard.org/getting-credit-placement/search-policies" target="_blank" rel="noopener">Search university AP policies <span class="ext" aria-hidden="true">&#8599;</span></a></p>
+          <p>Your Grade&nbsp;12 course mark counts toward your diploma and university applications like any other 4U course. The AP exam score is separate.</p>
+        </div>
+      </details>
+      <details>
+        <summary>Can students from other schools write AP exams at Georges Vanier?</summary>
+        <div class="ans"><p>Yes. Students from other schools can register as exam-only candidates for the exams we administer. Exam-only registration has the same deadline as first-semester and full-year students. Contact us with any questions about which exams are available.</p></div>
+      </details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section id="contact" class="alt" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="section-head">
+      <div class="eyebrow">Get in Touch</div>
+      <h2 id="contact-title">Contact</h2>
+      <p>Questions about AP courses or exam registration? We're happy to help.</p>
+    </div>
+    <div class="contact-wrap">
+      <div>
+        <div class="info-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
+          <div><b>Deanna Choi</b><span class="role">Assistant Curriculum Leader, Special Programs (STEM+ &amp; AP)</span></div>
+        </div>
+        <div class="info-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="5" width="19" height="14" rx="2.2"/><path d="m3 7 9 6 9-6"/></svg>
+          <div><b>Email</b><a href="https://mail.google.com/mail/?view=cm&amp;fs=1&amp;to=deanna.choi@tdsb.on.ca" target="_blank" rel="noopener">deanna.choi@tdsb.on.ca</a></div>
+        </div>
+        <div class="info-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M21 16.5v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 1.1 3.7 2 2 0 0 1 3.1 1.5h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L7 9.4a16 16 0 0 0 6 6l1.3-1.3a2 2 0 0 1 2.1-.4c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.8 2.1z"/></svg>
+          <div><b>Phone</b>416-395-3250 ext. 20095</div>
+        </div>
+        <div class="info-line">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 21.5s-7-6.2-7-12a7 7 0 0 1 14 0c0 5.8-7 12-7 12z"/><circle cx="12" cy="9.5" r="2.5"/></svg>
+          <div><b>Location</b>Georges Vanier Secondary School<br>3000 Don Mills Road East<br>Toronto, Ontario, M2J 3B6</div>
+        </div>
+      </div>
+      <div class="side-card">
+        <h3>Choosing your courses?</h3>
+        <p>Your guidance counsellor can help you plan a pathway from the pre-AP courses in Grade&nbsp;11 to AP in Grade&nbsp;12.</p>
+        <a class="btn btn-blue" href="https://gvss-guidance.github.io/guidance-site/" target="_blank" rel="noopener">Visit Guidance <span class="ext" aria-hidden="true">&#8599;</span></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer>
+  <div class="container">
+    <div class="crest-sm" aria-hidden="true">GV</div>
+    <div><b>Georges Vanier Secondary School &middot; Advanced Placement</b></div>
+    <div class="links">
+      <a href="#what-is-ap">What is AP?</a> &nbsp;&bull;&nbsp;
+      <a href="#courses">Courses</a> &nbsp;&bull;&nbsp;
+      <a href="#exams">Exams</a> &nbsp;&bull;&nbsp;
+      <a href="#faq">FAQ</a> &nbsp;&bull;&nbsp;
+      <a href="#contact">Contact</a>
+    </div>
+    <p class="small">&copy; <span id="yr">2026</span> Georges Vanier Secondary School, Toronto District School Board. AP&reg; and Advanced Placement&reg; are registered trademarks of College Board, which is not affiliated with and does not endorse this website.</p>
+  </div>
+</footer>
+
+<script>
+  // Footer year.
+  document.getElementById('yr').textContent = new Date().getFullYear();
+
+  // Mobile menu: toggle open/closed, and close it when a link is tapped.
+  (function(){
+    var btn = document.querySelector('.menu-toggle');
+    var links = document.getElementById('navlinks');
+    btn.addEventListener('click', function(){
+      var open = links.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    links.querySelectorAll('a').forEach(function(a){
+      a.addEventListener('click', function(){
+        links.classList.remove('open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+</script>
+
+</body>
+</html>

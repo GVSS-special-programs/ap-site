@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Advanced Placement (AP) | Georges Vanier Secondary School</title>
 <meta name="description" content="AP courses and AP exam registration at Georges Vanier Secondary School, a certified AP testing centre in the Toronto District School Board.">
+<!-- Scroll reveals are only switched on when this runs (adds .js to <html>). If the reveal
+     script at the end of <body> hasn't started within 3s, .js is removed again so no content
+     can stay hidden. -->
+<script>
+  document.documentElement.classList.add('js');
+  setTimeout(function(){ if (!window.revealReady) document.documentElement.classList.remove('js'); }, 3000);
+</script>
 <style>
   :root{
     --ap-blue:#1d3a6b;
@@ -315,6 +322,36 @@
     .brand span{font-size:.7rem;}
     .container{padding:0 16px;}
   }
+
+  /* ---------- Scroll reveals ----------
+     Add class "reveal" (+ an optional variant) to any element and it animates in the first time
+     it scrolls into view. Variants: (none) = fade up, reveal-left, reveal-right, reveal-zoom,
+     reveal-flip. The script at the end of <body> staggers elements that come into view together
+     (0.12s apart, max 0.6s), then REMOVES the reveal classes once the animation is done, so
+     normal styles like the course cards' hover lift take over again.
+     Kept last in the stylesheet so these rules win. */
+  section{overflow-x:clip;}   /* slide-ins start off to the side; never let them cause sideways scroll */
+  .js .reveal{
+    opacity:0;transform:translateY(34px);
+    transition:opacity .7s ease,transform .8s cubic-bezier(.2,.75,.25,1);
+  }
+  .js .reveal-left{transform:translateX(-48px);}
+  .js .reveal-right{transform:translateX(48px);}
+  .js .reveal-zoom{transform:scale(.9);}
+  .js .reveal-flip{transform:perspective(900px) rotateX(-75deg);transform-origin:50% 0;}
+  .js .reveal.in{opacity:1;transform:none;}
+  .js .reveal-flip.in{transform:perspective(900px) rotateX(0);}
+  /* One column on phones: side slides look odd stacked, so they fade up instead. */
+  @media(max-width:700px){
+    .js .reveal-left,.js .reveal-right{transform:translateY(34px);}
+  }
+  /* Devices set to reduce motion still get the fade, without the movement. */
+  @media(prefers-reduced-motion:reduce){
+    .js .reveal{transform:none !important;transition:opacity .6s ease;}
+  }
+  @media print{
+    .js .reveal{opacity:1 !important;transform:none !important;}
+  }
 </style>
 </head>
 <body>
@@ -340,10 +377,10 @@
 <!-- ============ HERO ============ -->
 <section class="hero">
   <div class="container">
-    <div class="badge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2.8 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.7 4.3-1.3 7.5-5.1 7.5-9.7V6z"/><path d="m8.8 12 2.2 2.2 4.4-4.4"/></svg>Certified AP Testing Centre</div>
-    <h1>University-level learning, <em>right here at Georges Vanier.</em></h1>
-    <p>We offer four Advanced Placement courses, open to every student, and we're a certified AP testing centre. Take the course, write the exam in May, and you could earn university credit or advanced standing before you graduate.</p>
-    <div class="btn-row">
+    <div class="badge reveal"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M12 2.8 4.5 6v5.5c0 4.6 3.2 8.4 7.5 9.7 4.3-1.3 7.5-5.1 7.5-9.7V6z"/><path d="m8.8 12 2.2 2.2 4.4-4.4"/></svg>Certified AP Testing Centre</div>
+    <h1 class="reveal">University-level learning, <em>right here at Georges Vanier.</em></h1>
+    <p class="reveal">We offer four Advanced Placement courses, open to every student, and we're a certified AP testing centre. Take the course, write the exam in May, and you could earn university credit or advanced standing before you graduate.</p>
+    <div class="btn-row reveal">
       <!-- FORM-URL (1 of 2): replace with the department's AP exam registration Google Form.
            Both FORM-URL spots must change together. Keep target="_blank" — the page is framed. -->
       <a href="https://forms.gle/REPLACE-WITH-AP-EXAM-FORM" class="btn btn-gold" target="_blank" rel="noopener">Register for an AP exam <span class="ext" aria-hidden="true">&#8599;</span></a>
@@ -355,29 +392,29 @@
 <!-- ============ WHAT IS AP ============ -->
 <section id="what-is-ap" class="alt" aria-labelledby="what-title">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">The Basics</div>
       <h2 id="what-title">What is AP?</h2>
       <p>Advanced Placement is a program run by College Board. Each AP course follows a university-level curriculum and ends with a standardized AP exam, written in May.</p>
     </div>
     <div class="grid grid-3">
-      <div class="point">
+      <div class="point reveal">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M2 8.5 12 4l10 4.5-10 4.5z"/><path d="M6 10.8v4.4c0 1.7 2.7 3 6 3s6-1.3 6-3v-4.4"/><path d="M22 8.5v5"/></svg></div>
         <h3>University-level courses</h3>
         <p>AP courses cover the material of an introductory university course, so you build the depth and study habits that first year will ask of you.</p>
       </div>
-      <div class="point">
+      <div class="point reveal">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M8 11V7.5a4 4 0 0 1 7.6-1.7"/><rect x="4.5" y="11" width="15" height="10" rx="2"/><path d="M12 15v2"/></svg></div>
         <h3>Open to every student</h3>
         <p>There's no application or admission process for AP courses at Georges Vanier. Choose them during regular course selection, like any other Grade&nbsp;12 course.</p>
       </div>
-      <div class="point">
+      <div class="point reveal">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="9" r="5.5"/><path d="m9 13.8-1.5 7.2 4.5-2.4 4.5 2.4-1.5-7.2"/></svg></div>
         <h3>Earn credit or placement</h3>
         <p>A strong exam score, usually a 4 or 5, can earn you credit or advanced standing at many universities in Canada and around the world. Policies vary by school and program.</p>
       </div>
     </div>
-    <div class="callout">
+    <div class="callout reveal">
       <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 11v5.5"/><path d="M12 7.5h.01"/></svg></div>
       <p><b>The course and the exam are separate.</b> An AP course earns you an Ontario credit, just like any other course. Writing the AP exam is an extra step that you register for yourself. See <a href="#exams">Exams &amp; Registration</a> below.</p>
     </div>
@@ -389,14 +426,14 @@
      2026-11-10). Course links go to College Board's student-facing AP Students pages. -->
 <section id="courses" aria-labelledby="courses-title">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Offered at Georges Vanier</div>
       <h2 id="courses-title">Our AP Courses</h2>
       <p>Four AP courses, each taught as part of its Ontario Grade&nbsp;12 credit.</p>
     </div>
     <div class="grid grid-2">
 
-      <div class="course">
+      <div class="course reveal reveal-flip">
         <div class="course-top">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 20c0-9 5.5-14.5 15-15-.5 9.5-6 15-15 15z"/><path d="M5 20 14 11"/></svg></div>
           <div><h3>AP Biology</h3><span class="code">SBI4U0</span></div>
@@ -406,7 +443,7 @@
         <a class="more" href="https://apstudents.collegeboard.org/courses/ap-biology" target="_blank" rel="noopener">Course &amp; exam overview at College Board <span class="ext" aria-hidden="true">&#8599;</span></a>
       </div>
 
-      <div class="course">
+      <div class="course reveal reveal-flip">
         <div class="course-top">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 3h6"/><path d="M10 3v6.2L4.6 18.4A1.7 1.7 0 0 0 6.1 21h11.8a1.7 1.7 0 0 0 1.5-2.6L14 9.2V3"/><path d="M7.2 15h9.6"/></svg></div>
           <div><h3>AP Chemistry</h3><span class="code">SCH4U0</span></div>
@@ -416,7 +453,7 @@
         <a class="more" href="https://apstudents.collegeboard.org/courses/ap-chemistry" target="_blank" rel="noopener">Course &amp; exam overview at College Board <span class="ext" aria-hidden="true">&#8599;</span></a>
       </div>
 
-      <div class="course">
+      <div class="course reveal reveal-flip">
         <div class="course-top">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.5 3.5v17h17"/><path d="M6.5 16.5c3 0 4-9 7-9s3.5 5 7 5"/></svg></div>
           <div><h3>AP Calculus AB</h3><span class="code">MCV4U0</span></div>
@@ -426,7 +463,7 @@
         <a class="more" href="https://apstudents.collegeboard.org/courses/ap-calculus-ab" target="_blank" rel="noopener">Course &amp; exam overview at College Board <span class="ext" aria-hidden="true">&#8599;</span></a>
       </div>
 
-      <div class="course">
+      <div class="course reveal reveal-flip">
         <div class="course-top">
           <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="9.5" ry="3.8"/><ellipse cx="12" cy="12" rx="9.5" ry="3.8" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9.5" ry="3.8" transform="rotate(120 12 12)"/></svg></div>
           <div><h3>AP Physics 1</h3><span class="code">SPH4U0</span></div>
@@ -443,33 +480,33 @@
 <!-- ============ EXAMS & REGISTRATION ============ -->
 <section id="exams" class="alt" aria-labelledby="exams-title">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Certified AP Testing Centre</div>
       <h2 id="exams-title">Exams &amp; Registration</h2>
       <p>Georges Vanier is a certified AP testing centre, so you can write your AP exams right here at school. Every exam has to be registered in advance.</p>
     </div>
 
     <div class="facts">
-      <div class="fact">
+      <div class="fact reveal reveal-zoom">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="9.5"/><path d="M12 6.8V12l3.5 2"/></svg></div>
         <!-- DEADLINES (update every year; also in the CTA band below): the school's registration
              and payment deadline. 2026–27: Nov 6, 2026 for first-semester, full-year and exam-only
              students (College Board order deadline Nov 13); second-semester date TBD. -->
         <div><span class="lbl">Registration deadline</span><span class="val">November&nbsp;6, 2026<small>Closed for first-semester, full-year and exam-only students. Second-semester date to be announced.</small></span></div>
       </div>
-      <div class="fact">
+      <div class="fact reveal reveal-zoom">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="2.5" y="6" width="19" height="12" rx="2"/><circle cx="12" cy="12" r="2.6"/><path d="M6 9.5v5M18 9.5v5"/></svg></div>
         <!-- TBD: exam fee (per exam) for this year -->
         <div><span class="lbl">Exam fee</span><span class="val">To be announced<small>Set each year, per exam</small></span></div>
       </div>
-      <div class="fact">
+      <div class="fact reveal reveal-zoom">
         <div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="3.5" y="5" width="17" height="15.5" rx="2"/><path d="M3.5 9.5h17"/><path d="M8 3v4M16 3v4"/></svg></div>
         <div><span class="lbl">Exam dates</span><span class="val">First two weeks of May<small><a href="https://apstudents.collegeboard.org/exam-dates" target="_blank" rel="noopener">College Board exam calendar <span class="ext" aria-hidden="true">&#8599;</span></a></small></span></div>
       </div>
     </div>
 
     <div class="grid grid-2">
-      <div class="res">
+      <div class="res reveal reveal-left">
         <h3>How to register</h3>
         <ol class="steps">
           <li><h4>Check that your exam is offered here</h4><p>We run the exams for the four AP courses taught at Georges Vanier. Exams for some other subjects may also be possible (see <b>coinciding exams</b>).</p></li>
@@ -480,7 +517,7 @@
         </ol>
       </div>
 
-      <div class="res">
+      <div class="res reveal reveal-right">
         <h3>Which exams can I write here?</h3>
         <ul class="exam-list">
           <li><b>AP Biology</b><span class="tag">Taught at GV</span></li>
@@ -502,7 +539,7 @@
       </div>
     </div>
 
-    <div class="cta-band">
+    <div class="cta-band reveal reveal-zoom">
       <h3>Ready to register?</h3>
       <!-- DEADLINES: keep in sync with the Registration deadline card above. -->
       <p>Use our AP exam registration form to sign up. Deadlines are firm: for 2026&ndash;27, registration for first-semester, full-year and exam-only students closed on November&nbsp;6. Second-semester dates will be posted here.</p>
@@ -515,40 +552,40 @@
 <!-- ============ FAQ ============ -->
 <section id="faq" aria-labelledby="faq-title">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Questions</div>
       <h2 id="faq-title">Frequently Asked Questions</h2>
     </div>
     <div class="faq">
-      <details>
+      <details class="reveal">
         <summary>Do I need to apply to take an AP course?</summary>
         <div class="ans"><p>No. AP courses at Georges Vanier are open to every student. Pick them during regular course selection, the same way you choose any other course. Your guidance counsellor can help you plan the pre-AP courses in Grade&nbsp;11 that lead into them.</p></div>
       </details>
-      <details>
+      <details class="reveal">
         <summary>Can I write an AP exam for a subject GV doesn't teach?</summary>
         <div class="ans"><p>Sometimes. If College Board schedules that exam at the same date and time as one we're already supervising, we may be able to seat you with that group. AP Calculus BC alongside AP Calculus AB is the most common example. It depends on each year's schedule, so contact us early to ask.</p></div>
       </details>
-      <details>
+      <details class="reveal">
         <summary>How much does an AP exam cost?</summary>
         <!-- TBD: add this year's fee once confirmed (keep in sync with the Exam fee card). -->
         <div class="ans"><p>The fee is set each year and is charged per exam. This year's fee will be posted here once it's confirmed.</p></div>
       </details>
-      <details>
+      <details class="reveal">
         <summary>When are AP exams written?</summary>
         <div class="ans"><p>AP exams are held over the first two weeks of May, on dates and times set by College Board. See the <a href="https://apstudents.collegeboard.org/exam-dates" target="_blank" rel="noopener">College Board exam calendar <span class="ext" aria-hidden="true">&#8599;</span></a> for this year's schedule.</p></div>
       </details>
-      <details>
+      <details class="reveal">
         <summary>How are AP exams scored, and when do I get my results?</summary>
         <div class="ans"><p>AP exams are scored from 1 to 5. Scores are released in July, and you'll see them in your College Board account. <a href="https://apstudents.collegeboard.org/scores" target="_blank" rel="noopener">About AP scores <span class="ext" aria-hidden="true">&#8599;</span></a></p></div>
       </details>
-      <details>
+      <details class="reveal">
         <summary>Will universities give me credit for my AP exams?</summary>
         <div class="ans">
           <p>Many universities in Canada and elsewhere award credit or advanced standing for strong AP scores, usually a 4 or 5. Every school and program sets its own rules, so check the universities you're interested in. <a href="https://apstudents.collegeboard.org/getting-credit-placement/search-policies" target="_blank" rel="noopener">Search university AP policies <span class="ext" aria-hidden="true">&#8599;</span></a></p>
           <p>Your Grade&nbsp;12 course mark counts toward your diploma and university applications like any other 4U course. The AP exam score is separate.</p>
         </div>
       </details>
-      <details>
+      <details class="reveal">
         <summary>Can students from other schools write AP exams at Georges Vanier?</summary>
         <div class="ans"><p>Yes. Students from other schools can register as exam-only candidates for the exams we administer. Exam-only registration has the same deadline as first-semester and full-year students. Contact us with any questions about which exams are available.</p></div>
       </details>
@@ -559,13 +596,13 @@
 <!-- ============ CONTACT ============ -->
 <section id="contact" class="alt" aria-labelledby="contact-title">
   <div class="container">
-    <div class="section-head">
+    <div class="section-head reveal">
       <div class="eyebrow">Get in Touch</div>
       <h2 id="contact-title">Contact</h2>
       <p>Questions about AP courses or exam registration? We're happy to help.</p>
     </div>
     <div class="contact-wrap">
-      <div>
+      <div class="reveal reveal-left">
         <div class="info-line">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="8" r="4"/><path d="M4.5 21a7.5 7.5 0 0 1 15 0"/></svg>
           <div><b>Deanna Choi</b><span class="role">Assistant Curriculum Leader, Special Programs (STEM+ &amp; AP)</span></div>
@@ -583,7 +620,7 @@
           <div><b>Location</b>Georges Vanier Secondary School<br>3000 Don Mills Road East<br>Toronto, Ontario, M2J 3B6</div>
         </div>
       </div>
-      <div class="side-card">
+      <div class="side-card reveal reveal-right">
         <h3>Choosing your courses?</h3>
         <p>Your guidance counsellor can help you plan a pathway from the pre-AP courses in Grade&nbsp;11 to AP in Grade&nbsp;12.</p>
         <a class="btn btn-blue" href="https://gvss-guidance.github.io/guidance-site/" target="_blank" rel="noopener">Visit Guidance <span class="ext" aria-hidden="true">&#8599;</span></a>
@@ -609,6 +646,36 @@
 </footer>
 
 <script>
+  // Scroll reveals (see the "Scroll reveals" CSS note). Kept first so nothing below can stop it.
+  // Works inside the Evoq iframe too: elements reveal when they're visible on the student's
+  // screen, so nothing animates unseen while the frame is still below the fold.
+  (function(){
+    window.revealReady = true;
+    var els = [].slice.call(document.querySelectorAll('.reveal'));
+    var VARIANTS = ['reveal','reveal-left','reveal-right','reveal-zoom','reveal-flip','in'];
+    function finish(el){
+      VARIANTS.forEach(function(c){ el.classList.remove(c); });
+      el.style.transitionDelay = '';
+    }
+    if (!('IntersectionObserver' in window)) { els.forEach(finish); return; }
+    var io = new IntersectionObserver(function(entries){
+      var batch = entries.filter(function(e){ return e.isIntersecting; })
+        .map(function(e){ return e.target; })
+        .sort(function(a, b){
+          var ra = a.getBoundingClientRect(), rb = b.getBoundingClientRect();
+          return (ra.top - rb.top) || (ra.left - rb.left);
+        });
+      batch.forEach(function(el, i){
+        var delay = Math.min(i * 0.12, 0.6);
+        io.unobserve(el);
+        el.style.transitionDelay = delay + 's';
+        el.classList.add('in');
+        setTimeout(function(){ finish(el); }, (delay + 0.9) * 1000);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -6% 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  })();
+
   // Footer year.
   document.getElementById('yr').textContent = new Date().getFullYear();
 
